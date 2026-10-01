@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RUBEN Discount Calculator</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f5f8fc;
+    color: #102a56;
+}
+
+.header {
+    background: linear-gradient(135deg, #0867d8, #17459c);
+    color: white;
+    padding: 32px 20px;
+}
+
+.header-inner {
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.logo-icon {
+    width: 85px;
+    height: 85px;
+    border: 7px solid white;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 45px;
+    background: rgba(255,255,255,.08);
+}
+
+.header h1 {
+    font-size: 46px;
+    line-height: 1;
+    letter-spacing: 1px;
+}
+
+.header h1 span {
+    color: #ffc52d;
+}
+
+.header p {
+    margin-top: 12px;
+    font-size: 18px;
+}
+
+.tagline {
+    margin-left: auto;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    transform: rotate(-5deg);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 28px auto;
+    padding: 0 18px;
+}
+
+.main-card {
+    background: white;
+    border-radius: 18px;
+    padding: 14px;
+    box-shadow: 0 4px 20px rgba(0,0,0,.08);
+    display: grid;
+    grid-template-columns: 1.2fr .8fr;
+    gap: 15px;
+}
+
+.tabs {
+    display: flex;
+    gap: 3px;
+    margin-bottom: 15px;
+}
+
+.tab {
+    flex: 1;
+    padding: 17px 10px;
+    border: none;
+    background: #eef3f9;
+    color: #24426f;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.tab:first-child {
+    border-radius: 14px 0 0 14px;
+}
+
+.tab:last-child {
+    border-radius: 0 14px 14px 0;
+}
+
+.tab.active {
+    background: #0867df;
+    color: white;
+}
+
+.input-area {
+    border: 1px solid #dce5f1;
+    border-radius: 15px;
+    padding: 25px;
+}
+
+.field {
+    margin-bottom: 20px;
+}
+
+.field label {
+    display: block;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 9px;
+}
+
+.input-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.input-icon {
+    width: 55px;
+    height: 55px;
+    min-width: 55px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: bold;
+    color: white;
+}
+
+.rupee {
+    background: #0875e8;
+}
+
+.percent {
+    background: #13a957;
+}
+
+input {
+    width: 100%;
+    height: 55px;
+    border: 2px solid #cbdced;
+    border-radius: 11px;
+    padding: 0 15px;
+    font-size: 20px;
+    outline: none;
+}
+
+input:focus {
+    border-color: #0875e8;
+}
+
+.info {
+    background: #eaf7ff;
+    border: 1px solid #bde8ff;
+    padding: 16px;
+    border-radius: 12px;
+    color: #0861c4;
+    line-height: 1.5;
+    margin-bottom: 18px;
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+button.action {
+    height: 55px;
+    border: none;
+    border-radius: 11px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.calculate {
+    background: #0878e8;
+    color: white;
+}
+
+.reset {
+    background: #edf2f7;
+    color: #24426f;
+}
+
+.result {
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.result-title {
+    background: #10a85a;
+    color: white;
+    padding: 19px;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.result-box {
+    padding: 22px;
+    margin-top: 10px;
+    border-radius: 14px;
+}
+
+.final {
+    background: #e8faf3;
+    border: 1px solid #a6e8cd;
+}
+
+.discount {
+    background: #fff6e6;
+    border: 1px solid #ffd88a;
+}
+
+.save {
+    background: #eaf4ff;
+    border: 1px solid #b9dcff;
+}
+
+.result-label {
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.result-value {
+    font-size: 37px;
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+.final .result-value {
+    color: #087a50;
+}
+
+.discount .result-value {
+    color: #f16c00;
+}
+
+.save .result-value {
+    color: #0867d8;
+}
+
+.features {
+    margin-top: 18px;
+    background: #eef2ff;
+    border-radius: 18px;
+    padding: 25px;
+}
+
+.features h2 {
+    margin-bottom: 18px;
+    font-size: 25px;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.feature {
+    background: white;
+    border-radius: 14px;
+    padding: 20px;
+    border: 1px solid #dbe4f4;
+}
+
+.feature-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 23px;
+    margin-bottom: 12px;
+}
+
+.blue {
+    background: #0875e8;
+}
+
+.green {
+    background: #13a957;
+}
+
+.purple {
+    background: #8a3fd1;
+}
+
+.feature h3 {
+    margin-bottom: 7px;
+}
+
+.feature p {
+    color: #64748b;
+    line-height: 1.4;
+}
+
+.footer {
+    margin-top: 25px;
+    background: #123b75;
+    color: white;
+    text-align: center;
+    padding: 25px;
+}
+
+.footer strong {
+    font-size: 19px;
+}
+
+.footer p {
+    margin-top: 7px;
+}
+
+.hidden {
+    display: none;
+}
+
+@media(max-width: 850px) {
+    .main-card {
+        grid-template-columns: 1fr;
+    }
+
+    .header-inner {
+        flex-wrap: wrap;
+    }
+
+    .tagline {
+        display: none;
+    }
+
+    .header h1 {
+        font-size: 32px;
+    }
+}
+
+@media(max-width: 600px) {
+    .header {
+        padding: 22px 15px;
+    }
+
+    .header-inner {
+        gap: 14px;
+    }
+
+    .logo-icon {
+        width: 65px;
+        height: 65px;
+        font-size: 34px;
+    }
+
+    .header h1 {
+        font-size: 25px;
+    }
+
+    .header p {
+        font-size: 14px;
+    }
+
+    .tabs {
+        flex-direction: column;
+    }
+
+    .tab,
+    .tab:first-child,
+    .tab:last-child {
+        border-radius: 10px;
+    }
+
+    .feature-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .buttons {
+        grid-template-columns: 1fr;
+    }
+
+    .input-area {
+        padding: 17px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+    <div class="header-inner">
+
+        <div class="logo-icon">%</div>
+
+        <div>
+            <h1>RUBEN <span>DISCOUNT</span> CALCULATOR</h1>
+            <p>Calculate Discount • Save More • Shop Smarter</p>
+        </div>
+
+        <div class="tagline">
+            Better Prices<br>
+            Bigger Savings!
+        </div>
+
+    </div>
+</header>
+
+
+<div class="container">
+
+    <div class="main-card">
+
+        <!-- LEFT SIDE -->
+        <div>
+
+            <div class="tabs">
+                <button class="tab active" onclick="showTab('basic', this)">
+                    🧮 Basic Calculator
+                </button>
+
+                <button class="tab" onclick="showTab('reverse', this)">
+                    ↩ Reverse Calculator
+                </button>
+
+                <button class="tab" onclick="showTab('gst', this)">
+                    📊 With GST & Profit
+                </button>
+            </div>
+
+
+            <!-- BASIC -->
+            <div id="basic" class="input-area">
+
+                <div class="field">
+                    <label>Original Price (₹)</label>
+
+                    <div class="input-wrap">
+                        <div class="input-icon rupee">₹</div>
+
+                        <input
+                            id="price"
+                            type="number"
+                            value="1000"
+                            min="0"
+                            oninput="calculateDiscount()"
+                        >
+                    </div>
+                </div>
+
+
+                <div class="field">
+                    <label>Discount (%)</label>
+
+                    <div class="input-wrap">
+                        <div class="input-icon percent">%</div>
+
+                        <input
+                            id="discount"
+                            type="number"
+                            value="20"
+                            min="0"
+                            max="100"
+                            oninput="calculateDiscount()"
+                        >
+                    </div>
+                </div>
+
+
+                <div class="info">
+                    ℹ️ Enter the original price and discount percentage.
+                    The calculator will automatically calculate the discount
+                    amount and final selling price.
+                </div>
+
+
+                <div class="buttons">
+
+                    <button class="action calculate" onclick="calculateDiscount()">
+                        🧮 Calculate
+                    </button>
+
+                    <button class="action reset" onclick="resetCalculator()">
+                        ↻ Reset
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- REVERSE -->
+            <div id="reverse" class="input-area hidden">
+
+                <div class="field">
+                    <label>Original Price (₹)</label>
+
+                    <div class="input-wrap">
+                        <div class="input-icon rupee">₹</div>
+
+                        <input id="reverseOriginal" type="number" value="1000">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>Final Price (₹)</label>
+
+                    <div class="input-wrap">
+                        <div class="input-icon percent">₹</div>
+
+                        <input id="reverseFinal" type="number" value="800">
+                    </div>
+                </div>
+
+                <div class="info">
+                    Enter original price and final selling price to find
+                    the discount percentage.
+                </div>
+
+                <button class="action calculate"
+                        style="width:100%"
+                        onclick="reverseCalculate()">
+                    Calculate Discount
+                </button>
+
+            </div>
+
+
+            <!-- GST -->
+            <div id="gst" class="input-area hidden">
+
+                <div class="field">
+                    <label>Price (₹)</label>
+
+                    <div class="input-wrap">
+                        <div class="input-icon rupee">₹</div>
+
+                        <input id="gstPrice" type="number" value="1000">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>GST (%)</label>
+
+                    <div class="input-wrap">
+                        <div class="input-icon percent">%</div>
+
+                        <input id="gstRate" type="number" value="18">
+                    </div>
+                </div>
+
+                <button class="action calculate"
+                        style="width:100%"
+                        onclick="calculateGST()">
+                    Calculate GST
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- RIGHT SIDE -->
+        <div class="result">
+
+            <div class="result-title">
+                ✓ Calculation Result
+            </div>
+
+            <div class="result-box final">
+
+                <div class="result-label">
+                    🏷️ Final Selling Price
+                </div>
+
+                <div class="result-value" id="finalPrice">
+                    ₹800.00
+                </div>
+
+            </div>
+
+
+            <div class="result-box discount">
+
+                <div class="result-label">
+                    🪙 Discount Amount
+                </div>
+
+                <div class="result-value" id="discountAmount">
+                    ₹200.00
+                </div>
+
+            </div>
+
+
+            <div class="result-box save">
+
+                <div class="result-label">
+                    % You Save
+                </div>
+
+                <div class="result-value" id="savePercent">
+                    20%
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- FEATURES -->
+    <section class="features">
+
+        <h2>⭐ More Features</h2>
+
+        <div class="feature-grid">
+
+            <div class="feature">
+
+                <div class="feature-icon blue">↩</div>
+
+                <h3>Reverse Calculator</h3>
+
+                <p>
+                    Get original price or discount
+                    from the final price.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon green">▣</div>
+
+                <h3>GST Calculator</h3>
+
+                <p>
+                    Add GST to your product price
+                    quickly and easily.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon purple">▥</div>
+
+                <h3>Profit Calculator</h3>
+
+                <p>
+                    Calculate your profit margin
+                    with cost price.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<footer class="footer">
+
+    <strong>RUBEN DISCOUNT CALCULATOR</strong>
+
+    <p>
+        Simple • Fast • Accurate
+    </p>
+
+</footer>
+
+
+<script>
+
+function money(value) {
+
+    return "₹" + Number(value).toLocaleString("en-IN", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    });
+
+}
+
+
+function calculateDiscount() {
+
+    let price = Number(document.getElementById("price").value);
+    let discount = Number(document.getElementById("discount").value);
+
+    if (price < 0) price = 0;
+
+    if (discount < 0) discount = 0;
+
+    if (discount > 100) discount = 100;
+
+    let discountAmount = price * discount / 100;
+
+    let finalPrice = price - discountAmount;
+
+    document.getElementById("discountAmount").innerText =
+        money(discountAmount);
+
+    document.getElementById("finalPrice").innerText =
+        money(finalPrice);
+
+    document.getElementById("savePercent").innerText =
+        discount + "%";
+}
+
+
+function resetCalculator() {
+
+    document.getElementById("price").value = 1000;
+
+    document.getElementById("discount").value = 20;
+
+    calculateDiscount();
+
+}
+
+
+function reverseCalculate() {
+
+    let original =
+        Number(document.getElementById("reverseOriginal").value);
+
+    let final =
+        Number(document.getElementById("reverseFinal").value);
+
+    if (original <= 0) {
+
+        alert("Please enter a valid original price.");
+
+        return;
+    }
+
+    let discountAmount = original - final;
+
+    let discountPercent =
+        (discountAmount / original) * 100;
+
+    document.getElementById("finalPrice").innerText =
+        money(final);
+
+    document.getElementById("discountAmount").innerText =
+        money(discountAmount);
+
+    document.getElementById("savePercent").innerText =
+        discountPercent.toFixed(2) + "%";
+}
+
+
+function calculateGST() {
+
+    let price =
+        Number(document.getElementById("gstPrice").value);
+
+    let gst =
+        Number(document.getElementById("gstRate").value);
+
+    let gstAmount =
+        price * gst / 100;
+
+    let total =
+        price + gstAmount;
+
+    document.getElementById("finalPrice").innerText =
+        money(total);
+
+    document.getElementById("discountAmount").innerText =
+        money(gstAmount);
+
+    document.getElementById("savePercent").innerText =
+        "GST " + gst + "%";
+}
+
+
+function showTab(tabName, button) {
+
+    document.getElementById("basic").classList.add("hidden");
+
+    document.getElementById("reverse").classList.add("hidden");
+
+    document.getElementById("gst").classList.add("hidden");
+
+    document.getElementById(tabName).classList.remove("hidden");
+
+
+    document.querySelectorAll(".tab").forEach(function(tab) {
+
+        tab.classList.remove("active");
+
+    });
+
+    button.classList.add("active");
+
+}
+
+
+calculateDiscount();
+
+</script>
+
+</body>
+</html>
